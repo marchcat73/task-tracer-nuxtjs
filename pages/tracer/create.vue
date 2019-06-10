@@ -1,5 +1,7 @@
 <template>
-  <h1>Добро пожаловать в планировщик задач</h1>
+  <div>
+    <h1>Create Task</h1>
+  </div>
 </template>
 
 <script>
@@ -8,4 +10,3 @@ export default {
   middleware: ['tracer-auth']
 }
 </script>
-
