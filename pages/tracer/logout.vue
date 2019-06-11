@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h1>Logout</h1>
+    <h1>Завершаем сессию.....</h1>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'tracer'
+  layout: 'tracer',
+  middleware: ['tracer-auth'],
+  beforeCreate() {
+    this.$store.dispatch('auth/logout')
+    this.$router.push('/?message=logout')
+  }
 }
 </script>
