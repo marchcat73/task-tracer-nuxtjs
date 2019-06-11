@@ -15,6 +15,18 @@ import AppNavigation from '@/components/main/Navigation'
 export default {
   components: {
     AppNavigation
+  },
+
+  computed: {
+    error() {
+      return this.$store.getters.error
+    }
+  },
+
+  watch: {
+    error(value) {
+      this.$message.error(value)
+    }
   }
 }
 </script>
