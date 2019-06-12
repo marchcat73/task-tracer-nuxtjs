@@ -1,5 +1,5 @@
 export const state = () => ({
-  token: null
+  token: true
 })
 
 export const mutations = {
@@ -25,6 +25,17 @@ export const actions = {
       throw err
     }
 
+  },
+
+  async createUser({commit}, formData) {
+    try {
+      console.log('createUser', formData)
+      this.$router.push('/')
+
+    } catch (err) {
+
+      console.error(err)
+    }
   },
 
   setToken({commit}, token) {
