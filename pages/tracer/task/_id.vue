@@ -52,6 +52,11 @@ export default {
   async asyncData({store, params}) {
     const task = await store.dispatch('task/fetchTaskById', params.id)
     return {task}
+  },
+  data() {
+    return {
+      loading: false
+    }
   }
 }
 </script>
