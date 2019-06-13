@@ -41,6 +41,14 @@
 export default {
   layout: 'tracer',
   middleware: ['tracer-auth'],
+  head() {
+    return {
+      title: `Задача - ${this.task.title}`
+    }
+  },
+  validate({params}) {
+    return Boolean(params.id)
+  },
   async asyncData({store, params}) {
     const task = await store.dispatch('task/fetchTaskById', params.id)
     return {task}
