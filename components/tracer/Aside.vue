@@ -14,7 +14,7 @@
         <i class="el-icon-edit"></i>
         <span>Создать задачу</span>
       </el-menu-item>
-      <el-menu-item>
+      <el-menu-item index="/tracer/scrum">
         <i class="el-icon-menu"></i>
         <span>Scrum</span>
       </el-menu-item>
