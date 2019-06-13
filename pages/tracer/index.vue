@@ -41,7 +41,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="remove(row._id)"
+            @click="remove(row._id, row.title)"
           >Удалить</el-button>
         </template>
       </el-table-column>
@@ -65,11 +65,27 @@ export default {
     },
 
     open(id) {
-      console.log(id)
+      this.$router.push(`/tracer/task/${id}`)
     },
 
-    remove(id) {
-      console.log(id)
+    async remove(id, title) {
+		try {
+      await this.$confirm('Удалить задачу?', 'Внимание!', {
+        confirmButtonText: 'Да',
+        cancelButtonText: 'Отменить',
+        type: 'warning'
+      })
+
+      await this.$store.dispatch('task/remove', id)
+
+      this.tasks = this.tasks.filter(t => t._id !== id)
+
+      this.$message.success(`Задача ${title} удалена`)
+
+    } catch (err) {
+      console.error(err)
+    }
+
     }
   }
 
