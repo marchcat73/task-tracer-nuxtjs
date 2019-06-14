@@ -16,9 +16,8 @@ export const actions = {
   async login({commit, dispatch}, formData) {
 
     try {
-      const token = await new Promise((resolve, reject) => {
-        setTimeout(() => resolve('mock-token'), 1500)
-      })
+	  const {token} = this.$axios.$post('/api/auth/admin/login', formData)
+	  console.log(token)
       dispatch('setToken', token)
     } catch (err) {
       commit('setError', err, {root: true})
