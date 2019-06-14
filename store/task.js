@@ -19,11 +19,23 @@ export const actions = {
 
   },
 
+  async update({}, {id}) {
+
+  },
+
+  async create({}, {title, description, status, priority}) {
+    return await new Promise((resolve) => {
+		setTimeout(() => {
+		  resolve()
+		}, 1000)
+	  })
+  },
+
   async fetchTaskById({}, id) {
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(tasks.find(t => t._id === id))
       }, 1000)
-	  })
+	})
   }
 }
