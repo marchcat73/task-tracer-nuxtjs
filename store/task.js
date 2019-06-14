@@ -24,11 +24,25 @@ export const actions = {
   },
 
   async create({}, {title, description, status, priority}) {
-    return await new Promise((resolve) => {
-		setTimeout(() => {
-		  resolve()
-		}, 1000)
-	  })
+	  try {
+      const fd = new FormData
+
+      fd.append('title', title)
+      fd.append('description', description)
+      fd.append('status', status)
+      fd.append('priority', priority)
+
+      return await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      })
+
+    } catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+    }
+
   },
 
   async fetchTaskById({}, id) {
