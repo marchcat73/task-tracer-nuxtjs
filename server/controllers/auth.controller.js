@@ -23,6 +23,19 @@ module.exports.login = async (req, res) => {
   }
 }
 
-module.exports.register = (req, res) => {
+module.exports.register = async (req, res) => {
+  const candidate = await User.findOne({email: req.body.email})
 
+  if (candidate) {
+    res.status(409).json({message: 'Такой email уже занят'})
+  } else {
+    const salt = bcrypt.genSaltSync(10)
+    const user = new User({
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, salt) 
+    })
+
+    await user.save()
+    res.status(201).json(user)
+  }
 }

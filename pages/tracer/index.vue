@@ -14,11 +14,13 @@
       <el-table-column
         prop="title"
         label="Название"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
         prop="priority"
         label="Приоритет"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
