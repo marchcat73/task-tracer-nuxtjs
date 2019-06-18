@@ -1,5 +1,6 @@
 export const state = () => ({
-  token: true
+  token: null,
+  userId: null
 })
 
 export const mutations = {
@@ -9,6 +10,14 @@ export const mutations = {
 
   clearToken(state) {
     state.token = null
+  },
+
+  setUserId(state, userId) {
+    state.userId = userId
+  },
+
+  clearUserId(state) {
+    state.userId = null
   }
 }
 
@@ -16,10 +25,9 @@ export const actions = {
   async login({commit, dispatch}, formData) {
 
     try {
-      const token = await new Promise((resolve, reject) => {
-        setTimeout(() => resolve('mock-token'), 1500)
-      })
+      const {token, userId} = await this.$axios.$post('/api/auth/admin/login', formData)
       dispatch('setToken', token)
+      dispatch('setUserId', userId)
     } catch (err) {
       commit('setError', err, {root: true})
       throw err
@@ -29,12 +37,12 @@ export const actions = {
 
   async createUser({commit}, formData) {
     try {
-      console.log('createUser', formData)
+      await this.$axios.$post('/api/auth/admin/register', formData)
       this.$router.push('/')
 
     } catch (err) {
-
-      console.error(err)
+      commit('setError', err, {root: true})
+      throw err
     }
   },
 
@@ -42,8 +50,13 @@ export const actions = {
     commit('setToken', token)
   },
 
+  setUserId({commit}, userId) {
+    commit('setUserId', userId)
+  },
+
   logout({commit}) {
     commit('clearToken')
+    commit('clearUserId')
   }
 }
 
