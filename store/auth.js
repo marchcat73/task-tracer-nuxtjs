@@ -47,6 +47,7 @@ export const actions = {
   },
 
   setToken({commit}, token) {
+    this.$axios.setToken(token, 'Bearer')
     commit('setToken', token)
   },
 
@@ -55,11 +56,14 @@ export const actions = {
   },
 
   logout({commit}) {
+    this.$axios.setToken(false)
     commit('clearToken')
     commit('clearUserId')
   }
 }
 
 export const getters = {
-  isAuthenticated: state => Boolean(state.token)
+  isAuthenticated: state => Boolean(state.token),
+  token: state => state.token,
+  userId: state => state.userId
 }

@@ -4,6 +4,10 @@ export const state = () => {
   }
 }
 
+export const actions = {
+  
+}
+
 export const mutations = {
   setError(state, error) {
     state.error = error
