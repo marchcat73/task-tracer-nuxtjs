@@ -9,13 +9,13 @@
       <h2 class="mb">Создание задачи</h2>
       <el-form-item label="Название" prop="title">
         <el-input
-          v-model.trim="controls.title"
+          v-model="controls.title"
         ></el-input>
       </el-form-item>
       <el-form-item label="Описание" prop="description">
         <el-input
           type="textarea"
-          v-model.trim="controls.description"
+          v-model="controls.description"
           resize="none"
           :rows="10"
         ></el-input>

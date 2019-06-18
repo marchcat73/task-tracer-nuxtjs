@@ -7,7 +7,7 @@ const tasks = [
   ]
 
 export const actions = {
-  async fetchTask({}) {
+  async fetchTask({commit}) {
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(tasks)
@@ -23,20 +23,15 @@ export const actions = {
 
   },
 
-  async create({}, {title, description, status, priority}) {
+  async create({commit}, {title, description, status, priority}) {
 	  try {
-      const fd = new FormData
+      const fd = new FormData()
 
       fd.append('title', title)
       fd.append('description', description)
       fd.append('status', status)
       fd.append('priority', priority)
-
-      return await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve()
-        }, 1000)
-      })
+      return await this.$axios.$post('/api/task', fd)
 
     } catch (err) {
       commit('setError', err, {root: true})

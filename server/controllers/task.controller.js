@@ -1,6 +1,7 @@
 const Task = require('../models/task.model')
 
 module.exports.create = async (req, res) => {
+	console.log(req.body)
   const task = new Task({
     title: req.body.title,
     description: req.body.description,
