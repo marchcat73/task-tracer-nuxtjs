@@ -1,37 +1,36 @@
-const tasks = [
-	{title: 'Task 1', date: '01.06.2019', description: 'Описание задачи 1', spenttime: '01:20:39', priority: 'высокий', status: 'запланирована', _id: 'id1'},
-	{title: 'Task 2', date: '02.06.2019', description: 'Описание задачи 2', spenttime: '01:20:39', priority: 'нормальный', status: 'выполняется', _id: 'id2'},
-	{title: 'Task 3', date: '03.06.2019', description: 'Описание задачи 3', spenttime: '01:20:39', priority: 'нормальный', status: 'выполняется', _id: 'id3'},
-	{title: 'Task 4', date: '04.06.2019', description: 'Описание задачи 4', spenttime: '01:20:39', priority: 'нормальный', status: 'завершена', _id: 'id4'},
-	{title: 'Task 5', date: '01.06.2019', description: 'Описание задачи 5', spenttime: '01:20:39', priority: 'высокий', status: 'завершена', _id: 'id5'}
-  ]
 
 export const actions = {
   async fetchTask({commit}) {
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(tasks)
-      }, 1000)
-    })
+		try {
+			return await this.$axios.$get('/api/task')
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
   },
 
-  async remove({}, id) {
-
+  async remove({commit}, id) {
+		try {
+			return await this.$axios.$delete(`/api/task/${id}`)
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
   },
 
-  async update({}, {id}) {
-
+  async update({commit}, {id, title, description, priority, status}) {
+		try {
+			return await this.$axios.$put(`/api/task/${id}`, {title, description, priority, status})
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
   },
 
-  async create({commit}, {title, description, status, priority}) {
+  async create({commit}, formData) {
 	  try {
-      const fd = new FormData()
-
-      fd.append('title', title)
-      fd.append('description', description)
-      fd.append('status', status)
-      fd.append('priority', priority)
-      return await this.$axios.$post('/api/task', fd)
+			
+      return await this.$axios.$post('/api/task', formData)
 
     } catch (err) {
       commit('setError', err, {root: true})
@@ -40,11 +39,7 @@ export const actions = {
 
   },
 
-  async fetchTaskById({}, id) {
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(tasks.find(t => t._id === id))
-      }, 1000)
-	})
+  async fetchTaskById({commit}, id) {
+
   }
 }

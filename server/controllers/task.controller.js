@@ -1,7 +1,6 @@
 const Task = require('../models/task.model')
 
 module.exports.create = async (req, res) => {
-	console.log(req.body)
   const task = new Task({
     title: req.body.title,
     description: req.body.description,
@@ -58,5 +57,10 @@ module.exports.update = async (req, res) => {
 }
 
 module.exports.remove = async (req, res) => {
-
+  try {
+    await Task.deleteOne({_id: req.params.id})
+    res.json({message: 'Задача удалена'})
+  } catch (e) {
+    res.status(500).json(e)
+  }
 }
