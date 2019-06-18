@@ -40,6 +40,11 @@ export const actions = {
   },
 
   async fetchTaskById({commit}, id) {
-
+		try {
+			return await this.$axios.$get(`/api/task/${id}`)
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
   }
 }
