@@ -3,13 +3,17 @@
     <h1 class="mb">Добро пожаловать в планировщик задач</h1>
     <el-table
       :data="tasks"
-      :default-sort = "{prop: 'date', order: 'descending'}"
+      :default-sort = "{prop: 'taskDate', order: 'descending'}"
       style="width: 100%">
       <el-table-column
-        prop="date"
+        prop="taskDate"
         label="Дата"
         sortable
-        width="180">
+        width="200">
+      <template slot-scope="{row: {taskDate}}">
+        <i class="el-icon-time"></i>
+        <span style="margin-left: 10px">{{ new Date(taskDate).toLocaleString() }}</span>
+      </template>
       </el-table-column>
       <el-table-column
         prop="title"

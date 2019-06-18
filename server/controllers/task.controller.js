@@ -57,5 +57,10 @@ module.exports.update = async (req, res) => {
 }
 
 module.exports.remove = async (req, res) => {
-
+  try {
+    await Task.deleteOne({_id: req.params.id})
+    res.json({message: 'Задача удалена'})
+  } catch (e) {
+    res.status(500).json(e)
+  }
 }
