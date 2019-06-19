@@ -1,9 +1,3 @@
-// export const state = () => {
-//   return {
-//     timeSpend: 132
-//   }
-// }
-
 export const actions = {
   async fetchTask({commit}) {
 		try {
@@ -63,29 +57,13 @@ export const actions = {
 		}
 	},
 
-	async statusMake({commit}, {status, _id}) {
-
+	async statusChange({commit}, {status, _id}) {
 		try {
-			return await this.$axios.$put(`/api/task/status/make/${_id}`, {status})
+			return await this.$axios.$put(`/api/task/status/change/${_id}`, {status})
 		} catch (err) {
       commit('setError', err, {root: true})
       throw err
 		}
 	}
+
 }
-
-// export const getters = {
-//   timeSpend: state => moment(state.timeSpend).format('hh:mm')
-// }
-
-// function getTimeFromMins(mins) {
-//   let hours = Math.trunc(mins/60);
-//   let minutes = mins % 60;
-//   if (hours < 10) {
-//     hours = `0${hours}`
-//   }
-//   if (minutes < 10) {
-//     minutes = `0${minutes}`
-//   }
-//   return hours + ':' + minutes;
-// };

@@ -80,7 +80,7 @@ module.exports.addTime = async (req, res) => {
   }
 }
 
-module.exports.statusMake = async (req, res) => {
+module.exports.statusChange = async (req, res) => {
   const $set = {
 		status: req.body.status
 	}

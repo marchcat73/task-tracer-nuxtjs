@@ -42,9 +42,9 @@ router.put(
 )
 
 router.put(
-  '/status/make/:id', 
+  '/status/change/:id', 
   passport.authenticate('jwt', {session: false}),
-  ctr.statusMake
+  ctr.statusChange
 )
 
 module.exports = router

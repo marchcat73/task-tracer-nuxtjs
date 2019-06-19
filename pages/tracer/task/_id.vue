@@ -38,10 +38,12 @@
 					<el-button 
 						type="success"
 						:loading="loading"
+						@click="statusDone"
 					>Завершить</el-button>
 				</div>
 				<div class="task-status">
-					<p>Статус: {{task.status}}</p>
+					<p><small>Статус: {{task.status}}</small></p>
+					<p><small>Приоритет: {{task.priority}}</small></p>					
 				</div>
       </div>
     </el-card>
@@ -93,11 +95,11 @@ export default {
           return false
 			}
 
-			if (this.task.status === 'запланирована') {
+			if (this.task.status === 'запланирована' || this.task.status === 'завершена') {
 				this.loading = true
 				this.task.status = 'выполняется'				
 				try {
-					await this.$store.dispatch('task/statusMake', this.task)
+					await this.$store.dispatch('task/statusChange', this.task)
 					this.loading = false
 				} catch (err) {
 					this.loading = false
@@ -124,7 +126,26 @@ export default {
 				this.interval = null
 				this.$message.success('Таймер остановлен')
 			}			
-    }
+		},
+		
+		async statusDone() {
+			if (this.interval) {
+				this.stopTime()
+			}
+			if (this.task.status === 'запланирована' || this.task.status === 'выполняется') {
+				this.loading = true
+				this.task.status = 'завершена'	
+				try {
+					await this.$store.dispatch('task/statusChange', this.task)
+					this.loading = false
+					this.$message.success('Задача завершена')
+				} catch (err) {
+					this.loading = false
+					console.error(err)
+				}		
+			}
+	
+		}
   },
   computed: {
     displayTime() {
@@ -132,7 +153,9 @@ export default {
     }
 	},
   beforeDestroy () {
-    this.stopTime()
+		if (this.interval) {
+			this.stopTime()
+		}
   }
 }
 </script>
