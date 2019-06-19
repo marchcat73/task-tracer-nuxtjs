@@ -19,7 +19,11 @@ const taskSchema = new Schema({
   },
   status: {
     type: String,
-    required: true
+    default: 'запланирована'
+  },
+  timeSpend: {
+    type: Number,
+    default: 0
   },
   user: {
     ref: `users`,

@@ -35,4 +35,16 @@ router.delete(
   ctr.remove
 )
 
+router.put(
+  '/add/time/:id', 
+  passport.authenticate('jwt', {session: false}),
+  ctr.addTime
+)
+
+router.put(
+  '/status/change/:id', 
+  passport.authenticate('jwt', {session: false}),
+  ctr.statusChange
+)
+
 module.exports = router

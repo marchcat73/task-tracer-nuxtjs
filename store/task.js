@@ -1,4 +1,3 @@
-
 export const actions = {
   async fetchTask({commit}) {
 		try {
@@ -41,10 +40,30 @@ export const actions = {
 
   async fetchTaskById({commit}, id) {
 		try {
-			return await this.$axios.$get(`/api/task/${id}`)
+      return await this.$axios.$get(`/api/task/${id}`)      
 		} catch (err) {
       commit('setError', err, {root: true})
       throw err
 		}
-  }
+	},
+	
+	async addTime({commit}, {timeSpend, _id}) {
+
+		try {
+			return await this.$axios.$put(`/api/task/add/time/${_id}`, {timeSpend})
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
+	},
+
+	async statusChange({commit}, {status, _id}) {
+		try {
+			return await this.$axios.$put(`/api/task/status/change/${_id}`, {status})
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
+	}
+
 }

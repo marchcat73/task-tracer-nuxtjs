@@ -60,6 +60,12 @@ export default {
   layout: 'tracer',
   middleware: ['tracer-auth'],
 
+  data () {
+    return {
+      auto: null
+    }
+  },
+
   async asyncData({store}) {
     const tasks = await store.dispatch('task/fetchTask')
     return {tasks}
@@ -75,24 +81,51 @@ export default {
     },
 
     async remove(id, title) {
-		try {
-      await this.$confirm('Удалить задачу?', 'Внимание!', {
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Отменить',
-        type: 'warning'
-      })
+      try {
+        await this.$confirm('Удалить задачу?', 'Внимание!', {
+          confirmButtonText: 'Да',
+          cancelButtonText: 'Отменить',
+          type: 'warning'
+        })
 
-      await this.$store.dispatch('task/remove', id)
+        await this.$store.dispatch('task/remove', id)
 
-      this.tasks = this.tasks.filter(t => t._id !== id)
+        this.tasks = this.tasks.filter(t => t._id !== id)
 
-      this.$message.success(`Задача ${title} удалена`)
+        this.$message.success(`Задача ${title} удалена`)
 
-    } catch (err) {
-      console.error(err)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    startAuto() {
+      this.auto = window.setInterval(async () => {
+        if (!this.$store.getters['auth/isAuthenticated']) {
+          return false
+        }
+        try {
+          this.tasks = await this.$store.dispatch('task/fetchTask')
+        } catch (err) {
+          console.error(err)
+        }
+      }, 300000)
+      
+    },
+
+    stopAuto() {
+      if (this.auto) {
+        window.clearInterval(this.auto)
+      }
     }
+  },
 
-    }
+  mounted () {
+    this.startAuto()
+  },
+
+  beforeDestroy () {
+    this.stopAuto()
   }
 
 }

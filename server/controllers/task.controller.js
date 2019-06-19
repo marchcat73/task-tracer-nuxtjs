@@ -64,3 +64,33 @@ module.exports.remove = async (req, res) => {
     res.status(500).json(e)
   }
 }
+
+module.exports.addTime = async (req, res) => {
+  const $set = {
+		timeSpend: req.body.timeSpend
+	}
+  try {
+    await Task.findOneAndUpdate(
+      {_id: req.params.id},
+      {$set}
+    )
+    res.status(204).json()
+  } catch (e) {
+    res.status(500).json(e)
+  }
+}
+
+module.exports.statusChange = async (req, res) => {
+  const $set = {
+		status: req.body.status
+	}
+  try {
+    await Task.findOneAndUpdate(
+      {_id: req.params.id},
+      {$set}
+    )
+    res.status(204).json()
+  } catch (e) {
+    res.status(500).json(e)
+  }
+}
