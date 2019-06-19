@@ -1,3 +1,8 @@
+// export const state = () => {
+//   return {
+//     timeSpend: 132
+//   }
+// }
 
 export const actions = {
   async fetchTask({commit}) {
@@ -41,10 +46,26 @@ export const actions = {
 
   async fetchTaskById({commit}, id) {
 		try {
-			return await this.$axios.$get(`/api/task/${id}`)
+      return await this.$axios.$get(`/api/task/${id}`)      
 		} catch (err) {
       commit('setError', err, {root: true})
       throw err
 		}
   }
 }
+
+// export const getters = {
+//   timeSpend: state => moment(state.timeSpend).format('hh:mm')
+// }
+
+// function getTimeFromMins(mins) {
+//   let hours = Math.trunc(mins/60);
+//   let minutes = mins % 60;
+//   if (hours < 10) {
+//     hours = `0${hours}`
+//   }
+//   if (minutes < 10) {
+//     minutes = `0${minutes}`
+//   }
+//   return hours + ':' + minutes;
+// };

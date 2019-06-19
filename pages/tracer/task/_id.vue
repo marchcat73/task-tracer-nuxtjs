@@ -9,7 +9,7 @@
         <span>{{ task.title }}</span>
         <small>
           <i class="el-icon-time"></i>
-          {{task.date}}
+          {{new Date(task.taskDate).toLocaleString()}}
         </small>
       </div>
       <div class="task-body mb2">
@@ -18,19 +18,21 @@
       <div class="task-footer clearfix">
         <small class="pr2">
           <i class="el-icon-timer"></i>
-          <time class="time">{{ task.spenttime }}</time>
+          <time class="time" :v-model="displayTime">{{ displayTime }}</time>
         </small>
         <el-button
           circle
           :loading="loading"
           icon="el-icon-video-play"
           class="task-button"
+          @click="startTime"
         ></el-button>
         <el-button
           circle
           :loading="loading"
           icon="el-icon-video-pause"
           class="task-button"
+          @click="stopTime"
         ></el-button>
       </div>
     </el-card>
@@ -55,7 +57,38 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      interval: null
+    }
+  },
+  methods: {
+    getTimeFromMins(mins) {
+      let hours = Math.trunc(mins/60);
+      let minutes = Math.floor(mins % 60);
+      if (hours < 10) {
+        hours = `0${hours}`
+      }
+      if (minutes < 10) {
+        minutes = `0${minutes}`
+      }
+      return hours + ':' + minutes;
+    },
+
+    startTime() {
+      this.interval = window.setInterval(() => {
+        this.task.timeSpend = this.task.timeSpend + 1
+      }, 1000)
+    },
+
+    stopTime() {
+      if (this.interval) {
+        window.clearInterval(this.interval)
+      }
+    }
+  },
+  computed: {
+    displayTime() {
+      return this.getTimeFromMins(this.task.timeSpend/60)
     }
   }
 }

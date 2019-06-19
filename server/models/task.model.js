@@ -21,6 +21,10 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
+  timeSpend: {
+    type: Number,
+    default: 0
+  },
   user: {
     ref: `users`,
     type: Schema.Types.ObjectId
