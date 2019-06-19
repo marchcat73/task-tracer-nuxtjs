@@ -20,7 +20,7 @@
           :rows="10"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Статус" prop="status">
+      <!-- <el-form-item label="Статус" prop="status">
         <el-select v-model="controls.status" placeholder="Select">
           <el-option
             v-for="item in optionsStatus"
@@ -29,7 +29,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="Приоритет" prop="priority">
         <el-select v-model="controls.priority" placeholder="Select">
           <el-option
@@ -62,7 +62,7 @@ export default {
       controls: {
 		    title: '',
         description: '',
-        status: 'запланирована',
+        // status: 'запланирована',
         priority: 'нормальный'
       },
       rules: {
@@ -73,16 +73,16 @@ export default {
           { required: true, message: 'Поле не должен быть пустым', trigger: 'blur' }
         ]
       },
-      optionsStatus: [{
-        value: 'запланирована',
-        label: 'запланирована'
-      }, {
-        value: 'выполняется',
-        label: 'выполняется'
-      }, {
-        value: 'завершена',
-        label: 'завершена'
-      }],
+      // optionsStatus: [{
+      //   value: 'запланирована',
+      //   label: 'запланирована'
+      // }, {
+      //   value: 'выполняется',
+      //   label: 'выполняется'
+      // }, {
+      //   value: 'завершена',
+      //   label: 'завершена'
+      // }],
       optionsPriority: [{
         value: 'нормальный',
         label: 'нормальный'

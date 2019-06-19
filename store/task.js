@@ -51,7 +51,27 @@ export const actions = {
       commit('setError', err, {root: true})
       throw err
 		}
-  }
+	},
+	
+	async addTime({commit}, {timeSpend, _id}) {
+
+		try {
+			return await this.$axios.$put(`/api/task/add/time/${_id}`, {timeSpend})
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
+	},
+
+	async statusMake({commit}, {status, _id}) {
+
+		try {
+			return await this.$axios.$put(`/api/task/status/make/${_id}`, {status})
+		} catch (err) {
+      commit('setError', err, {root: true})
+      throw err
+		}
+	}
 }
 
 // export const getters = {
