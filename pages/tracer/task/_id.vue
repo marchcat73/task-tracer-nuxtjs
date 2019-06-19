@@ -19,7 +19,7 @@
 				<div>
 					<small class="pr2">
 						<i class="el-icon-timer"></i>
-						<time class="time" :v-model="displayTime">{{ displayTime }}</time>
+						<time class="time">{{ displayTime }}</time>
 					</small>
 					<el-button
 						circle
