@@ -3,8 +3,7 @@ import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 export const state = () => ({
-  token: null,
-  userId: null
+  token: null
 })
 
 export const mutations = {
@@ -14,23 +13,15 @@ export const mutations = {
 
   clearToken(state) {
     state.token = null
-  },
-
-  setUserId(state, userId) {
-    state.userId = userId
-  },
-
-  clearUserId(state) {
-    state.userId = null
   }
+
 }
 
 export const actions = {
   async login({commit, dispatch}, formData) {
     try {
-      const {token, userId} = await this.$axios.$post('/api/auth/admin/login', formData)
+      const {token} = await this.$axios.$post('/api/auth/admin/login', formData)
       dispatch('setToken', token)
-      dispatch('setUserId', userId)
     } catch (err) {
       commit('setError', err, {root: true})
       throw err
@@ -54,14 +45,9 @@ export const actions = {
 		Cookies.set('jwt-token', token)
   },
 
-  setUserId({commit}, userId) {
-    commit('setUserId', userId)
-  },
-
   logout({commit}) {
     this.$axios.setToken(false)
     commit('clearToken')
-		commit('clearUserId')
 		Cookies.remove('jwt-token')
 	},
 	
