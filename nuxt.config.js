@@ -31,10 +31,16 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/pwa'
   ],
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
+  },
+
+  env: {
+    appName: 'TaskManager24'
   },
 
   build: {

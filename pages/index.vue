@@ -38,6 +38,11 @@
 
 
 export default {
+  head() {
+    return {
+      title: `${process.env.appName} - Вход в систему`
+    }    
+  },
   data() {
     return {
       loading: false,

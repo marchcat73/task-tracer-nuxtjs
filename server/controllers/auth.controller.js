@@ -10,12 +10,11 @@ module.exports.login = async (req, res) => {
     const isPasswordCorrect = bcrypt.compareSync(req.body.password, candidate.password)
 
     if (isPasswordCorrect) {
-	  const userId = candidate._id
       const token = jwt.sign({
         email: candidate.email,
         userId: candidate._id
       }, keys.JWT, {expiresIn: 60 * 60 * 24})
-      res.json({token, userId})
+      res.json({token})
     } else {
       res.status(401).json({message: 'Пароль неверен'})
     }

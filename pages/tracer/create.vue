@@ -54,6 +54,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: `${process.env.appName} - Создание задачи`
+    }    
+  },
   layout: 'tracer',
   middleware: ['tracer-auth'],
   data() {
