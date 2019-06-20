@@ -12,7 +12,7 @@
         width="200">
       <template slot-scope="{row: {taskDate}}">
         <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ new Date(taskDate).toLocaleString() }}</span>
+        <span style="margin-left: 10px">{{ taskDate | date('date') }}</span>
       </template>
       </el-table-column>
       <el-table-column
@@ -57,6 +57,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: `${process.env.appName} - Список задач`
+    }    
+  },
   layout: 'tracer',
   middleware: ['tracer-auth'],
 

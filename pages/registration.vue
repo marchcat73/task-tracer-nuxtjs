@@ -43,6 +43,11 @@
 
 
 export default {
+  head() {
+    return {
+      title: `${process.env.appName} - Регистрация нового пользователя`
+    }    
+  },
   data() {
     let validatePass = (rule, value, callback) => {
       if (value === '') {

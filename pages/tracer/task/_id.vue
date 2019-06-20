@@ -9,7 +9,7 @@
         <span>{{ task.title }}</span>
         <small>
           <i class="el-icon-time"></i>
-          {{new Date(task.taskDate).toLocaleString()}}
+          {{task.taskDate | date}}
         </small>
       </div>
       <div class="task-body mb2">
@@ -56,7 +56,7 @@ export default {
   middleware: ['tracer-auth'],
   head() {
     return {
-      title: `Задача - ${this.task.title}`
+      title: `Задача: ${this.task.title} - ${process.env.appName}`
     }
   },
   validate({params}) {
