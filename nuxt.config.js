@@ -4,12 +4,6 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
 
-  server: {
-    port: 3000, // default: 3000
-    host: process.env.BASE_URL || 'http://prest.codehtml.ru:3000', // default: localhost,
-    timing: false
-  },
-
   head: {
     title: 'Планировщик задач',
     meta: [
@@ -42,7 +36,7 @@ module.exports = {
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: process.env.BASE_URL || 'http://prest.codehtml.ru:3000'
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
   },
 
   env: {
