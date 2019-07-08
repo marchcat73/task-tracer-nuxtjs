@@ -6,6 +6,7 @@ const passportStrategy = require('./middleware/passport-strategy')
 const authRoutes = require('./routes/auth.routes')
 const taskRoutes = require('./routes/task.routes')
 const keys = require('./keys')
+const cors = require('cors')
 const app = express()
 
 mongoose.set('useNewUrlParser', true)
@@ -20,7 +21,10 @@ passport.use(passportStrategy)
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
-app.use(require('cors')())
+app.use(cors({
+  origin: '*',
+  credentials: true
+}))
 
 const enableCrossDomain = function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
