@@ -20,7 +20,15 @@ passport.use(passportStrategy)
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(require('cors')())
 
+const enableCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+}
+app.use(enableCrossDomain)
 
 app.use('/api/auth', authRoutes)
 app.use('/api/task', taskRoutes)
