@@ -37,12 +37,14 @@ module.exports = {
   server: {
     port: 3000, // default: 3000
     host: '0.0.0.0', // default: localhost,
-    timing: false
+    timing: {
+      total: true
+    }
   },
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: process.env.BASE_URL || 'http://prest.codehtml.ru:3000'
+    baseURL: process.env.BASE_URL || 'http://127.0.0.1:3000'
   },
 
   env: {
