@@ -31,20 +31,27 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/proxy'
   ],
 
-  server: {
-    port: 3000, // default: 3000
-    host: '0.0.0.0', // default: localhost,
-    timing: {
-      total: true
-    }
-  },
+  // server: {
+  //   port: 3000, // default: 3000
+  //   host: '0.0.0.0', // default: localhost,
+  //   timing: {
+  //     total: true
+  //   }
+  // },
 
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: process.env.BASE_URL || 'http://127.0.0.1:3000'
+    // baseURL: process.env.BASE_URL || 'http://127.0.0.1:3000',
+
+    proxy: true
+  },
+
+  proxy: {
+    '/api/': { target: process.env.BASE_URL || 'http://127.0.0.1:3000', pathRewrite: {'^/api/': ''} }
   },
 
   env: {
