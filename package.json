@@ -4,6 +4,10 @@
   "description": "Task Tracer",
   "author": "Vitaliy Vanyushin",
   "private": true,
+  "engines": {
+    "node": "10.16.*",
+    "npm": "6.9.*"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
